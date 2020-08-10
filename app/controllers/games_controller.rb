@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# creates new game and sets the score
 class GamesController < ApplicationController
   require 'json'
   require 'open-uri'
@@ -9,7 +12,7 @@ class GamesController < ApplicationController
 
   def score
     valid = letters_match_grid? && word_is_english?
-    session[:player_points] = session[:player_points] + @guess.length.square if valid
+    session[:player_points] = session[:player_points] + @guess.length**2 if valid
     @points = session[:player_points]
     @result = result_message
   end
@@ -28,7 +31,7 @@ class GamesController < ApplicationController
 
   def word_is_english?
     url = "https://wagon-dictionary.herokuapp.com/#{params['guess']}"
-    word = JSON.parse(open(url).read)
+    word = JSON.parse(URI.open(url).read)
     word['found']
   end
 

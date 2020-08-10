@@ -8,9 +8,8 @@ class GamesController < ApplicationController
   end
 
   def score
-    if letters_match_grid? && word_is_english?
-      session[:player_points] = session[:player_points] + @guess.length.square
-    end
+    valid = letters_match_grid? && word_is_english?
+    session[:player_points] = session[:player_points] + @guess.length.square if valid
     @points = session[:player_points]
     @result = result_message
   end

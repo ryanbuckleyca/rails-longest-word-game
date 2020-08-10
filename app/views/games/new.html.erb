@@ -1,0 +1,14 @@
+<h1>New game</h1>
+<ul class="flex-no-wrap">
+  <% @letters.each do |letter| %>
+  <li><%= letter %></li>
+  <% end %>
+</ul>
+
+<p>What is your longest word?</p>
+<form method="POST" action="/score" class="flex-no-wrap">
+  <%= hidden_field_tag :letters, @letters.join %>
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <input type="text" name="guess">
+  <input type="submit" value="Play">
+</form>
